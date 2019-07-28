@@ -47,7 +47,7 @@ router.post("/create", (req, res) => {
 
 // API routes: fetch reviews assign to a user
 router.get("/assignments", (req, res) => {
-  const _id = req.body._id;
+  const _id = req.query._id;
   User.findOne({ _id }).then(user => {
     if (!user) {
       return res.status(404).json({ message: "User not found." });
@@ -61,7 +61,7 @@ router.get("/assignments", (req, res) => {
 
 // API routes: fetch reviews of a user
 router.get("/received", (req, res) => {
-  const _id = req.body._id;
+  const _id = req.query._id;
   User.findOne({ _id }).then(user => {
     if (!user) {
       return res.status(404).json({ message: "User not found." });

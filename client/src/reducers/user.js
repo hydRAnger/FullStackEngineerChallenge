@@ -1,24 +1,25 @@
 import {
-  FETCH_EMPLOYEE_DOING,
-  FETCH_EMPLOYEE_SUCCESS
+  FETCH_EMPLOYEES_DOING,
+  FETCH_EMPLOYEES_SUCCESS
 } from "../actions/types";
 
 const initialState = {
-  employees: [],
+  users: [],
   loading: false
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case FETCH_EMPLOYEE_DOING:
+    case FETCH_EMPLOYEES_DOING:
       return {
         ...state,
         loading: true
       };
-    case FETCH_EMPLOYEE_SUCCESS:
+    case FETCH_EMPLOYEES_SUCCESS:
       return {
         ...state,
-        employees: action.payload
+        loading: false,
+        users: action.payload
       };
     default:
       return state;
