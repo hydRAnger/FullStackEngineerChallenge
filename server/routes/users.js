@@ -93,19 +93,17 @@ router.post("/signin", (req, res) => {
 // API routes: fetch user list
 router.get("/list", (req, res) => {
   User.find().then(users => {
-    return res.status(200).json({ users: users });
+    return res.status(200).json({ users });
   });
 });
 
 // API routes: update user
 router.put("/update", (req, res) => {
-  const user = req.body;
-
-  User.findOne({ _id: user._id }).then(user => {
+  User.findOne({ _id: req.body._id }).then(user => {
     if (!user) {
       return res.status(404).json({ email: "User not found." });
     }
-    User.updateOne({ _id: user._id }, { $set: user }).then(user =>
+    User.updateOne({ _id: req.body._id }, { $set: req.body }).then(user =>
       res.status(200).json(user)
     );
   });
@@ -113,9 +111,7 @@ router.put("/update", (req, res) => {
 
 // API routes: delete user
 router.delete("/delete", (req, res) => {
-  const _id = req.body._id;
-
-  User.findOne({ _id }).then(user => {
+  User.findOne({ _id: req.body._id }).then(user => {
     if (!user) {
       return res.status(404).json({ email: "User not found." });
     }
