@@ -1,4 +1,5 @@
 
 
 # TODO
-i18n
+- [ ] i18n
+- [ ] extract service layer from action

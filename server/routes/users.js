@@ -9,7 +9,7 @@ const validateSignUpValue = require("../validation/signup");
 
 const User = require("../models/User");
 
-// API routes: signup
+// API routes: signup(create user)
 router.post("/signup", (req, res) => {
   const { errors, isValid } = validateSignUpValue(req.body);
 
@@ -41,7 +41,7 @@ router.post("/signup", (req, res) => {
         newUser.password = hashValue;
         newUser
           .save()
-          .then(user => res.json(user))
+          .then(user => res.status(200).json(user))
           .catch(err => {
             console.error(err);
           });
@@ -71,7 +71,7 @@ router.post("/signin", (req, res) => {
         return res.status(400).json({ password: "Wrong password." });
       }
 
-      const payload = { id: user.id, name: user.name };
+      const payload = { id: user.id, name: user.name, isAdmin: user.isAdmin };
 
       jwt.sign(
         payload,
@@ -86,6 +86,47 @@ router.post("/signin", (req, res) => {
           });
         }
       );
+    });
+  });
+});
+
+// API routes: fetch user list
+router.get("/list", (req, res) => {
+  User.find().then(users => {
+    return res.status(200).json({ users: users });
+  });
+});
+
+// API routes: update user
+router.put("/update", (req, res) => {
+  const user = req.body;
+
+  User.findOne({ _id: user._id }).then(user => {
+    if (!user) {
+      return res.status(404).json({ email: "User not found." });
+    }
+    User.updateOne({ _id: user._id }, { $set: user }).then(user =>
+      res.status(200).json(user)
+    );
+  });
+});
+
+// API routes: delete user
+router.delete("/delete", (req, res) => {
+  const _id = req.body._id;
+
+  User.findOne({ _id }).then(user => {
+    if (!user) {
+      return res.status(404).json({ email: "User not found." });
+    }
+    User.deleteOne({ _id: user._id }).then(({ deletedCount }) => {
+      console.log(`Delete ${deletedCount} user.`);
+      if (deletedCount < 1) {
+        return res
+          .status(400)
+          .json({ name: `User ${user.name} delete failed.` });
+      }
+      res.status(200).end();
     });
   });
 });

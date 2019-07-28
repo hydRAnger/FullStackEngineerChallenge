@@ -18,8 +18,6 @@ function App() {
         <Route path="/signin" component={Login} />
         <Switch>
           <AdminRoute exact path="/admin" component={Admin} />
-        </Switch>
-        <Switch>
           <EmployeeRoute exact path="/review" component={Review} />
         </Switch>
       </Router>

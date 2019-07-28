@@ -1,8 +1,13 @@
 import React from 'react';
 
+import Employees from './Employees'
+
 function Admin() {
   return (
-    <h1>Admin</h1>
+    <div>
+      <h1>Admin</h1>
+      <Employees />
+    </div>
   );
 }
 
