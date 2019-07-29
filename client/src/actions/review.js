@@ -26,7 +26,7 @@ export const fetchReceivedReviews = (userData) => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err.response.data);
+      console.error(err);
     });
 };
 
@@ -47,7 +47,7 @@ export const fetchAssignmentReviews = userData => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err.response.data);
+      console.error(err);
     });
 };
 
@@ -64,7 +64,7 @@ export const createReview = reviewData => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err.response.data);
+      console.error(err);
     });
 };
 
@@ -81,6 +81,6 @@ export const submitReview = reviewData => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err.response.data);
+      console.error(err);
     });
 };

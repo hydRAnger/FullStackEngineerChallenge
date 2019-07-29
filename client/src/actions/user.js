@@ -29,7 +29,7 @@ export const fetchUser = userId => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err.response.data);
+      console.error(err);
     });
 
 }
@@ -47,7 +47,7 @@ export const fetchUsers = () => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err.response.data);
+      console.error(err);
     });
 };
 
@@ -64,7 +64,7 @@ export const createUser = userData => dispatch => {
       })
     })
     .catch(err => {
-      console.error(err.response.data);
+      console.error(err);
     });
 };
 
@@ -81,7 +81,7 @@ export const updateUser = userData => dispatch => {
       })
     })
     .catch(err => {
-      console.error(err.response.data);
+      console.error(err);
     });
 };
 
@@ -97,6 +97,6 @@ export const deleteUser = userData => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err.response.data);
+      console.error(err);
     });
 };

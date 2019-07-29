@@ -15,6 +15,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
+        <Route exact path="/" component={SignIn} />
         <Route path="/signin" component={SignIn} />
         <Switch>
           <AdminRoute exact path="/admin" component={Admin} />
