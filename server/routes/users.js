@@ -114,9 +114,19 @@ router.put("/update", (req, res) => {
     if (!user) {
       return res.status(404).json({ email: "User not found." });
     }
-    User.updateOne({ _id: req.body._id }, { $set: req.body }).then(user =>
-      res.status(200).json(user)
-    );
+
+    bcrypt.genSalt(10, (err, salt) => {
+      bcrypt.hash(req.body.password, salt, (err, hashValue) => {
+        if (err) {
+          throw err;
+        }
+
+        const updatedUser = {...req.body, password: hashValue}
+        User.updateOne({ _id: req.body._id }, { $set: updatedUser }).then(user =>
+          res.status(200).json(user)
+        );
+      });
+    });
   });
 });
 

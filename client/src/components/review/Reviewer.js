@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import ReviewEditor from "./ReviewEditor";
 import { fetchUsers } from "../../actions/user";
 import { fetchAssignmentReviews } from "../../actions/review";
+import { signOutUser } from "../../actions/auth";
 import "./review.scss";
 
 const { Header, Content } = Layout;
@@ -19,13 +20,17 @@ class Reviewer extends React.Component {
     const { users } = this.props.userReducers;
 
     return users.find(user => user._id === review.target);
-  }
+  };
 
   handleSignOut = e => {
     e.preventDefault();
 
     this.props.history.push("/signin");
     this.props.signOutUser();
+  };
+
+  handleReviewSubmit = () => {
+    this.props.fetchAssignmentReviews(this.props.user);
   };
 
   render() {
@@ -47,16 +52,20 @@ class Reviewer extends React.Component {
           >
             SignOut
           </Button>
-
         </Header>
         <Content>
-          {(loadingAssignmentReviews || loadingUsers) ? (
+          {loadingAssignmentReviews || loadingUsers ? (
             <Spin />
           ) : assignmentReviews.lengh === 0 ? (
             <Empty />
           ) : (
             assignmentReviews.map(review => (
-              <ReviewEditor key={review._id} review={review} user={this.getReivewTarget(review)} />
+              <ReviewEditor
+                key={review._id}
+                review={review}
+                user={this.getReivewTarget(review)}
+                onSubmit={this.handleReviewSubmit}
+              />
             ))
           )}
         </Content>
@@ -66,10 +75,11 @@ class Reviewer extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  authReducers: state.authReducers,
   reviewReducers: state.reviewReducers,
   userReducers: state.userReducers
 });
 export default connect(
   mapStateToProps,
-  { fetchUsers, fetchAssignmentReviews }
+  { signOutUser, fetchUsers, fetchAssignmentReviews }
 )(Reviewer);

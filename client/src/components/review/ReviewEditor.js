@@ -37,6 +37,8 @@ class ReviewEditor extends React.Component {
       ...review,
       comment,
       rating
+    }).then(() => {
+      this.props.onSubmit && this.props.onSubmit();
     })
   }
 
