@@ -4,13 +4,15 @@ import { Button, Card, Row, Col, List, Avatar, Icon, Empty } from "antd";
 
 import UserReview from "./UserReview";
 import UserModal from "./UserModal";
+import ReviewCreateModal from "./ReviewCreateModal";
 import { fetchReceivedReviews } from "../../actions/review";
 
 class UserDetails extends React.Component {
   constructor() {
     super();
     this.state = {
-      showUserModal: false
+      showUserModal: false,
+      showReviewModal: false
     };
   }
 
@@ -30,6 +32,12 @@ class UserDetails extends React.Component {
     });
   };
 
+  toggleReviewModal = showReviewModal => {
+    this.setState({
+      showReviewModal
+    });
+  };
+
   buildReviewInfo(rawReview) {
     const { users } = this.props;
     const assignUser = users.find(user => user._id === rawReview.assign);
@@ -39,7 +47,7 @@ class UserDetails extends React.Component {
   }
 
   render() {
-    const { user } = this.props;
+    const { user, users } = this.props;
 
     return (
       <div className="user-details">
@@ -48,21 +56,31 @@ class UserDetails extends React.Component {
             <Avatar size={128}>{user.name}</Avatar>
           </Col>
           <Col span={20}>
-            <h2>
-              {user.name}{" "}
-              <Button
-                type="link"
-                icon="edit"
-                onClick={() => {
-                  this.toggleUserModal(true);
-                }}
-              />
-            </h2>
+            <h2>{user.name}</h2>
             <p>
               <Icon type="team" /> {user.department}
             </p>
             <p>
               <Icon type="mail" /> {user.email}
+            </p>
+            <p>
+              <Button
+                icon="edit"
+                onClick={() => {
+                  this.toggleUserModal(true);
+                }}
+              >
+                Edit User
+              </Button>
+              &nbsp;
+              <Button
+                icon="like"
+                onClick={() => {
+                  this.toggleReviewModal(true);
+                }}
+              >
+                Assign a Review
+              </Button>
             </p>
           </Col>
         </Row>
@@ -86,6 +104,14 @@ class UserDetails extends React.Component {
           visible={this.state.showUserModal}
           onClose={() => {
             this.toggleUserModal(false);
+          }}
+        />
+        <ReviewCreateModal
+          user={user}
+          users={users}
+          visible={this.state.showReviewModal}
+          onClose={() => {
+            this.toggleReviewModal(false);
           }}
         />
       </div>

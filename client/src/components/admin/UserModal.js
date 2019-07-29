@@ -25,20 +25,13 @@ class UserModal extends React.Component {
         const { user, updateUser, createUser } = this.props;
         const service = user ? updateUser : createUser;
         const payload = user ? { ...values, _id: user._id } : values;
-        this.setState(
-          {
-            confirmLoading: true
-          },
-          () => {
-            service(payload).then(() => {
-              this.setState({
-                confirmLoading: false
-              });
-              this.props.fetchUsers();
-              this.props.onClose && this.props.onClose();
-            });
-          }
-        );
+        this.setState({ confirmLoading: true }, () => {
+          service(payload).then(() => {
+            this.setState({ confirmLoading: false });
+            this.props.fetchUsers();
+            this.props.onClose && this.props.onClose();
+          });
+        });
       }
     });
   };
