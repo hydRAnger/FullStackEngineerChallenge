@@ -20,9 +20,8 @@ const ReviewSchema = new Schema({
     default: ""
   },
   createdAt: {
-    type: String,
-    required: true,
-    default: ""
+    type: Number,
+    required: true
   },
   done: {
     type: Boolean,
@@ -30,8 +29,7 @@ const ReviewSchema = new Schema({
     default: false
   },
   doneAt: {
-    type: String,
-    default: ""
+    type: Number
   }
 });
 

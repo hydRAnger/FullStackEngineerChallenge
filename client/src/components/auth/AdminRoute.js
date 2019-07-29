@@ -2,11 +2,11 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-const AdminRoute = ({ component: Component, auth, ...rest }) => (
+const AdminRoute = ({ component: Component, authReducers, ...rest }) => (
   <Route
     {...rest}
     render={props =>
-      auth.isAdmin ? (
+      authReducers.isAdmin ? (
         <Component {...props} />
       ) : (
         <Redirect to="/signin" />
@@ -16,7 +16,7 @@ const AdminRoute = ({ component: Component, auth, ...rest }) => (
 );
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  authReducers: state.authReducers
 });
 
 export default connect(mapStateToProps)(AdminRoute);

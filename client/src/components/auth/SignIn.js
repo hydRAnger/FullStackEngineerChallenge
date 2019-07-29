@@ -15,17 +15,17 @@ class SignInForm extends React.Component {
 
   componentDidMount() {
     // If logged in and user navigates to Login page, should redirect them to dashboard
-    if (this.props.auth.isAdmin) {
+    if (this.props.authReducers.isAdmin) {
       this.props.history.push('/admin');
-    } else if (this.props.auth.isAuthenticated) {
+    } else if (this.props.authReducers.isAuthenticated) {
       this.props.history.push("/review");
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.auth.isAdmin) {
+    if (nextProps.authReducers.isAdmin) {
       this.props.history.push("/admin");
-    } else if (nextProps.auth.isAuthenticated) {
+    } else if (nextProps.authReducers.isAuthenticated) {
       this.props.history.push("/review");
     }
 
@@ -100,7 +100,7 @@ const SignIn = Form.create({ name: "normal_login" })(
 );
 
 const mapStateToProps = state => ({
-  auth: state.auth,
+  authReducers: state.authReducers,
   errors: state.errors
 });
 export default connect(

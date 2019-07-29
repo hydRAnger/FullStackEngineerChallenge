@@ -32,20 +32,23 @@ class Admin extends React.Component {
         <Header>Admin</Header>
         <Layout>
           <Sider theme="light" width="400">
-            {this.props.user.loading ? (
+            {this.props.userReducers.loading ? (
               <Spin />
             ) : (
               <UserList
                 onSelect={user => {
                   this.handleSelectUser(user);
                 }}
-                users={this.props.user.users}
+                users={this.props.userReducers.users}
               />
             )}
           </Sider>
           <Content>
             {this.state.selectedUser ? (
-              <UserDetails user={this.state.selectedUser} />
+              <UserDetails
+                user={this.state.selectedUser}
+                users={this.props.userReducers.users}
+              />
             ) : (
               <Empty />
             )}
@@ -56,7 +59,7 @@ class Admin extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ user: state.user });
+const mapStateToProps = state => ({ userReducers: state.userReducers });
 export default connect(
   mapStateToProps,
   { fetchUsers }

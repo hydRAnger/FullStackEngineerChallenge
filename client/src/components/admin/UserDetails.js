@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Card, Row, Col, Rate, Button, Avatar, Icon, Empty } from "antd";
+import { Card, Row, Col, List, Rate, Button, Avatar, Icon, Empty } from "antd";
 
+import UserReview from "./UserReview";
 import { fetchReceivedReviews } from "../../actions/review";
 
 class UserDetails extends React.Component {
@@ -15,10 +16,18 @@ class UserDetails extends React.Component {
     }
   }
 
+  buildReviewInfo(rawReview) {
+    const { users } = this.props;
+    const assignUser = users.find(user => user._id === rawReview.assign);
+    return assignUser
+      ? { ...rawReview, assignName: assignUser.name }
+      : rawReview;
+  }
+
   render() {
     const { user } = this.props;
 
-    console.dir(this.props.review.receivedReviews);
+    console.dir(this.props.reviewReducers.receivedReviews);
     return (
       <div style={{ padding: "25px" }}>
         <Row>
@@ -34,25 +43,25 @@ class UserDetails extends React.Component {
             </p>
           </Col>
         </Row>
-        <div>
-          <h3> Reviews: </h3>
-          {this.props.review.receivedReviews &&
-          this.props.review.receivedReviews.length ? (
-            <div>
-              {this.props.review.receivedReviews.map(review => (
-                <Card title={review.comment} key={review._id} />
-              ))}
-            </div>
+        <Card title="Reviews:">
+          {this.props.reviewReducers.receivedReviews &&
+          this.props.reviewReducers.receivedReviews.length ? (
+            <List
+              className="comment-list"
+              itemLayout="horizontal"
+              dataSource={this.props.reviewReducers.receivedReviews}
+              renderItem={review => <UserReview review={this.buildReviewInfo(review)} />}
+            />
           ) : (
             <Empty />
           )}
-        </div>
+        </Card>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({ review: state.review });
+const mapStateToProps = state => ({ reviewReducers: state.reviewReducers });
 export default connect(
   mapStateToProps,
   { fetchReceivedReviews }
