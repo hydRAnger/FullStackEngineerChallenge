@@ -7,7 +7,7 @@ import "./App.scss";
 import store from "./store";
 import Admin from "./components/admin/Admin";
 import Reviewer from "./components/review/Reviewer";
-import Login from "./components/auth/SignIn";
+import SignIn from "./components/auth/SignIn";
 import AdminRoute from "./components/auth/AdminRoute";
 import EmployeeRoute from "./components/auth/EmployeeRoute";
 
@@ -15,7 +15,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <Route path="/signin" component={Login} />
+        <Route path="/signin" component={SignIn} />
         <Switch>
           <AdminRoute exact path="/admin" component={Admin} />
           <EmployeeRoute exact path="/review" component={Reviewer} />

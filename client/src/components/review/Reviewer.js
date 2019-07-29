@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Spin, Empty } from "antd";
+import { Button, Layout, Spin, Empty } from "antd";
 import { connect } from "react-redux";
 
 import ReviewEditor from "./ReviewEditor";
@@ -21,6 +21,13 @@ class Reviewer extends React.Component {
     return users.find(user => user._id === review.target);
   }
 
+  handleSignOut = e => {
+    e.preventDefault();
+
+    this.props.history.push("/signin");
+    this.props.signOutUser();
+  };
+
   render() {
     const {
       loadingAssignmentReviews,
@@ -30,7 +37,18 @@ class Reviewer extends React.Component {
 
     return (
       <Layout>
-        <Header>Reviews need to do</Header>
+        <Header className="header-reviewer">
+          Reviews need to do
+          <Button
+            className="btn-signout"
+            icon="logout"
+            type="primary"
+            onClick={this.handleSignOut}
+          >
+            SignOut
+          </Button>
+
+        </Header>
         <Content>
           {(loadingAssignmentReviews || loadingUsers) ? (
             <Spin />

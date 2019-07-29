@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Layout, Spin, Empty, Button } from "antd";
 
+import { signOutUser } from "../../actions/auth";
 import { deleteUser, fetchUsers } from "../../actions/user";
 import UserList from "./UserList";
 import UserModal from "./UserModal";
@@ -54,10 +55,27 @@ class Admin extends React.Component {
     });
   };
 
+  handleSignOut = e => {
+    e.preventDefault();
+
+    this.props.history.push("/signin");
+    this.props.signOutUser();
+  };
+
   render() {
     return (
       <Layout>
-        <Header>Admin</Header>
+        <Header className="header-admin">
+          Admin
+          <Button
+            className="btn-signout"
+            icon="logout"
+            type="primary"
+            onClick={this.handleSignOut}
+          >
+            SignOut
+          </Button>
+        </Header>
         <Layout>
           <Sider theme="light" width="400" className="sidebar-admin">
             <Button
@@ -103,8 +121,11 @@ class Admin extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ userReducers: state.userReducers });
+const mapStateToProps = state => ({
+  authReducers: state.authReducers,
+  userReducers: state.userReducers
+});
 export default connect(
   mapStateToProps,
-  { deleteUser, fetchUsers }
+  { deleteUser, fetchUsers, signOutUser }
 )(Admin);

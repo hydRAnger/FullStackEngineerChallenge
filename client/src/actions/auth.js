@@ -1,7 +1,7 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 
-import { SIGNIN_SUCCESS, SIGNIN_DOING } from "./types";
+import { SIGNIN_SUCCESS, SIGNOUT_SUCCESS, SIGNIN_DOING } from "./types";
 import setAuthToken from "./setAuthToken";
 
 // Register User
@@ -41,5 +41,7 @@ export const setUserLoading = () => {
 export const signOutUser = () => dispatch => {
   localStorage.removeItem("jwtToken");
   setAuthToken(false);
-  dispatch(setCurrentUser({}));
+  dispatch({
+    type: SIGNOUT_SUCCESS
+  });
 };

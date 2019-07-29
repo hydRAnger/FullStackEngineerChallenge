@@ -1,5 +1,6 @@
 import {
   SIGNIN_DOING,
+  SIGNOUT_SUCCESS,
   SIGNIN_SUCCESS
 } from "../actions/types";
 
@@ -17,7 +18,6 @@ export default function(state = initialState, action) {
         ...state,
         loading: true
       };
-      // return state.set("user", { isLoading: true });
     case SIGNIN_SUCCESS:
       const user = action.payload;
       return {
@@ -25,6 +25,13 @@ export default function(state = initialState, action) {
         isAdmin: user.isAdmin,
         isAuthenticated: !!user,
         user
+      };
+    case SIGNOUT_SUCCESS:
+      return {
+        ...state,
+        isAdmin: false,
+        isAuthenticated: false,
+        user: {}
       };
     default:
       return state;
