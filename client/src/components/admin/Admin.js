@@ -1,10 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Layout, Spin, Empty } from "antd";
+import { Layout, Spin, Empty, Button } from "antd";
 
-import { fetchUsers } from "../../actions/user";
+import { deleteUser, fetchUsers } from "../../actions/user";
 import UserList from "./UserList";
+import UserModal from "./UserModal";
 import UserDetails from "./UserDetails";
+import "./admin.scss";
 
 const { Sider, Header, Content } = Layout;
 class Admin extends React.Component {
@@ -12,33 +14,69 @@ class Admin extends React.Component {
     super();
     this.state = {
       selectedUser: null,
+      showUserModal: false,
       errors: {}
     };
-  }
-
-  handleSelectUser(user) {
-    this.setState({
-      selectedUser: user
-    });
   }
 
   componentDidMount() {
     this.props.fetchUsers();
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { selectedUser } = this.state;
+    if (!selectedUser) {
+      return;
+    }
+    const user = nextProps.userReducers.users.find(
+      user => user._id === selectedUser._id
+    );
+    this.setState({
+      selectedUser: user
+    });
+  }
+
+  handleSelectUser = user => {
+    this.setState({
+      selectedUser: user
+    });
+  };
+
+  handleDeleteUser = user => {
+    this.props.deleteUser(user).then(() => {
+      this.props.fetchUsers();
+    });
+  };
+
+  toggleUserModal = showUserModal => {
+    this.setState({
+      showUserModal
+    });
+  };
+
   render() {
     return (
       <Layout>
         <Header>Admin</Header>
         <Layout>
-          <Sider theme="light" width="400">
+          <Sider theme="light" width="400" className="sidebar-admin">
+            <Button
+              icon="user-add"
+              type="dashed"
+              size="large"
+              block
+              onClick={() => {
+                this.toggleUserModal(true);
+              }}
+            >
+              Create New User
+            </Button>
             {this.props.userReducers.loading ? (
               <Spin />
             ) : (
               <UserList
-                onSelect={user => {
-                  this.handleSelectUser(user);
-                }}
+                onDelete={this.handleDeleteUser}
+                onSelect={this.handleSelectUser}
                 users={this.props.userReducers.users}
               />
             )}
@@ -53,6 +91,12 @@ class Admin extends React.Component {
               <Empty />
             )}
           </Content>
+          <UserModal
+            visible={this.state.showUserModal}
+            onClose={() => {
+              this.toggleUserModal(false);
+            }}
+          />
         </Layout>
       </Layout>
     );
@@ -62,5 +106,5 @@ class Admin extends React.Component {
 const mapStateToProps = state => ({ userReducers: state.userReducers });
 export default connect(
   mapStateToProps,
-  { fetchUsers }
+  { deleteUser, fetchUsers }
 )(Admin);

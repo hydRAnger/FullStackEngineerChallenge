@@ -1,13 +1,17 @@
 import React from "react";
-import { Comment, Avatar, Tooltip } from "antd";
+import { Comment, Avatar, Tooltip, Rate } from "antd";
 import moment from "moment";
 
 function UserReview(props) {
-  const {review} = props;
+  const { review } = props;
   return (
     <Comment
-      author={review.assignName}
-      avatar={<Avatar icon="user" />}
+      author={
+        <span>
+          {review.assignName} <Rate disabled value={review.rating} />
+        </span>
+      }
+      avatar={<Avatar>{review.assignName[0]}</Avatar>}
       content={review.comment}
       datetime={
         <Tooltip title={moment(review.doneAt).format("YYYY-MM-DD HH:mm:ss")}>
