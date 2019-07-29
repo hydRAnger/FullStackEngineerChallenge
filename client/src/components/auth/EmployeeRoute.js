@@ -7,7 +7,7 @@ const EmployeeRoute = ({ component: Component, authReducers, ...rest }) => (
     {...rest}
     render={props =>
       authReducers.isAuthenticated ? (
-        <Component {...props} />
+        <Component user={authReducers.user} {...props} />
       ) : (
         <Redirect to="/signin" />
       )

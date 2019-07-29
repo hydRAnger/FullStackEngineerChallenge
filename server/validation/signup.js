@@ -4,8 +4,6 @@ module.exports = function validateSignUpValue(data) {
   let errors = {};
   let isValid = true;
 
-  console.log('signup data');
-  console.log(data);
   if (Validator.isEmpty(data.name)) {
     errors.name = "User name is required!";
     isValid = false;

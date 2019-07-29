@@ -6,7 +6,7 @@ import { Provider } from "react-redux";
 import "./App.scss";
 import store from "./store";
 import Admin from "./components/admin/Admin";
-import Review from "./components/review/Review";
+import Reviewer from "./components/review/Reviewer";
 import Login from "./components/auth/SignIn";
 import AdminRoute from "./components/auth/AdminRoute";
 import EmployeeRoute from "./components/auth/EmployeeRoute";
@@ -18,7 +18,7 @@ function App() {
         <Route path="/signin" component={Login} />
         <Switch>
           <AdminRoute exact path="/admin" component={Admin} />
-          <EmployeeRoute exact path="/review" component={Review} />
+          <EmployeeRoute exact path="/review" component={Reviewer} />
         </Switch>
       </Router>
     </Provider>

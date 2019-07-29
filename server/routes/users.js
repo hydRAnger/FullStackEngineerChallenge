@@ -71,7 +71,7 @@ router.post("/signin", (req, res) => {
         return res.status(400).json({ password: "Wrong password." });
       }
 
-      const payload = { id: user.id, name: user.name, isAdmin: user.isAdmin };
+      const payload = { id: user.id, _id: user._id, name: user.name, isAdmin: user.isAdmin };
 
       jwt.sign(
         payload,
@@ -87,6 +87,17 @@ router.post("/signin", (req, res) => {
         }
       );
     });
+  });
+});
+
+// API routes: fetch user by id
+router.get("/get", (req, res) => {
+  const _id = req.query._id;
+  User.findOne({ _id }).then(user => {
+    if (!user) {
+      return res.status(404).json({ email: "User not found." });
+    }
+    return res.status(200).json({ user });
   });
 });
 
@@ -116,7 +127,6 @@ router.delete("/delete", (req, res) => {
       return res.status(404).json({ email: "User not found." });
     }
     User.deleteOne({ _id: user._id }).then(({ deletedCount }) => {
-      console.log(`Delete ${deletedCount} user.`);
       if (deletedCount < 1) {
         return res
           .status(400)

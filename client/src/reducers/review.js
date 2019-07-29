@@ -1,10 +1,14 @@
 
 import {
+  FETCH_ASSIGNMENT_REVIEWS_DOING,
+  FETCH_ASSIGNMENT_REVIEWS_SUCCESS,
   FETCH_RECEIVED_REVIEWS_DOING,
   FETCH_RECEIVED_REVIEWS_SUCCESS
 } from "../actions/types";
 
 const initialState = {
+  assignmentReviews: [],
+  loadingAssignmentReviews: false,
   receivedReviews: [],
   loadingReceivedReviews: false
 };
@@ -22,6 +26,17 @@ export default function(state = initialState, action) {
         loadingReceivedReviews: false,
         receivedReviews: action.payload
       };
+    case FETCH_ASSIGNMENT_REVIEWS_DOING:
+      return {
+        ...state,
+        loadingAssignmentReviews: true
+      };
+    case FETCH_ASSIGNMENT_REVIEWS_SUCCESS:
+      return {
+        ...state,
+        loadingAssignmentReviews: false,
+        assignmentReviews: action.payload
+      }
     default:
       return state;
   }

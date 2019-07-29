@@ -105,7 +105,6 @@ router.delete("/delete", (req, res) => {
     }
 
     Review.deleteOne({ _id: req.body._id }).then(({ deletedCount }) => {
-      console.log(`Delete ${deletedCount} review.`);
       if (deletedCount < 1) {
         return res
           .status(400)
