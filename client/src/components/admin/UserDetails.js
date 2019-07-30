@@ -53,6 +53,7 @@ class UserDetails extends React.Component {
       <div className="user-details">
         <Row className="user-card">
           <Col span={4}>
+            {/* FOR REVIEWER: Use fake potrait temporarily. Should allow user to edit and upload potrait in the future */}
             <Avatar size={128}>{user.name}</Avatar>
           </Col>
           <Col span={20}>

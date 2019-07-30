@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Avatar, Icon, Input, Rate, Tooltip } from "antd";
+import { Button, Input, Rate, Tooltip } from "antd";
 import { connect } from "react-redux";
 import moment from "moment";
 
