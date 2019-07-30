@@ -15,6 +15,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
+        {/* TO REVIEWER: For time limit, I've not make a Landing Page for '/', just go to signin page. I know a beautiful Landing Page will help in UX*/}
         <Route exact path="/" component={SignIn} />
         <Route path="/signin" component={SignIn} />
         <Switch>

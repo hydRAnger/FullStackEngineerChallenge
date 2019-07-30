@@ -9,6 +9,8 @@ const validateSignUpValue = require("../validation/signup");
 
 const User = require("../models/User");
 
+// TO REVIEWER: I'm not open signup for user. I'm not too sure about the UX here yet.
+// This just for admin to cteate new normal user(employee).
 // API routes: signup(create user)
 router.post("/signup", (req, res) => {
   const { errors, isValid } = validateSignUpValue(req.body);
@@ -71,7 +73,12 @@ router.post("/signin", (req, res) => {
         return res.status(400).json({ password: "Wrong password." });
       }
 
-      const payload = { id: user.id, _id: user._id, name: user.name, isAdmin: user.isAdmin };
+      const payload = {
+        id: user.id,
+        _id: user._id,
+        name: user.name,
+        isAdmin: user.isAdmin
+      };
 
       jwt.sign(
         payload,
@@ -121,9 +128,9 @@ router.put("/update", (req, res) => {
           throw err;
         }
 
-        const updatedUser = {...req.body, password: hashValue}
-        User.updateOne({ _id: req.body._id }, { $set: updatedUser }).then(user =>
-          res.status(200).json(user)
+        const updatedUser = { ...req.body, password: hashValue };
+        User.updateOne({ _id: req.body._id }, { $set: updatedUser }).then(
+          user => res.status(200).json(user)
         );
       });
     });

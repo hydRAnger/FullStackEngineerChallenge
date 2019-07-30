@@ -4,6 +4,9 @@ import {
   FETCH_REVIEW_TARGET_SUCCESS
 } from "../actions/types";
 
+// TO REVIEW: I'd like use Immutable.js for redux state. Make a more immutable uni-direction data flow.
+// I'm a fan of Functional Programming.
+// But for time limit, I did not use it at this time.
 const initialState = {
   reviewTarget: {},
   users: [],

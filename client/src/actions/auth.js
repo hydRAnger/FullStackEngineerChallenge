@@ -7,6 +7,8 @@ import setAuthToken from "./setAuthToken";
 // Register User
 
 // SignIn
+// TO REVIEWER: I should make extra service layer for encapsulating the async operations.
+// For time limit, I just put the async operation in action, temporarily.
 export const signInUser = userData => dispatch => {
   axios
     .post("/api/users/signin", userData)

@@ -14,7 +14,6 @@ class SignInForm extends React.Component {
   }
 
   componentDidMount() {
-    // If logged in and user navigates to Login page, should redirect them to dashboard
     if (this.props.authReducers.isAdmin) {
       this.props.history.push('/admin');
     } else if (this.props.authReducers.isAuthenticated) {
