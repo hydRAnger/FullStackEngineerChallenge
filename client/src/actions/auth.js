@@ -1,4 +1,5 @@
 import axios from "axios";
+import { message } from 'antd';
 import jwt_decode from "jwt-decode";
 
 import { SIGNIN_SUCCESS, SIGNOUT_SUCCESS, SIGNIN_DOING } from "./types";
@@ -20,7 +21,8 @@ export const signInUser = userData => dispatch => {
       dispatch(setCurrentUser(decoded));
     })
     .catch(err => {
-      console.error(err);
+      message.error(JSON.stringify(err.response.data));
+      console.error(err.response.data);
     });
 };
 

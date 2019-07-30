@@ -1,4 +1,5 @@
 import axios from "axios";
+import { message } from 'antd';
 
 import {
   FETCH_EMPLOYEES_DOING,
@@ -29,7 +30,8 @@ export const fetchUser = userId => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err);
+      message.error(JSON.stringify(err.response.data));
+      console.error(err.response.data);
     });
 
 }
@@ -47,7 +49,8 @@ export const fetchUsers = () => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err);
+      message.error(JSON.stringify(err.response.data));
+      console.error(err.response.data);
     });
 };
 
@@ -64,7 +67,8 @@ export const createUser = userData => dispatch => {
       })
     })
     .catch(err => {
-      console.error(err);
+      message.error(JSON.stringify(err.response.data));
+      console.error(err.response.data);
     });
 };
 
@@ -81,7 +85,8 @@ export const updateUser = userData => dispatch => {
       })
     })
     .catch(err => {
-      console.error(err);
+      message.error(JSON.stringify(err.response.data));
+      console.error(err.response.data);
     });
 };
 
@@ -97,6 +102,7 @@ export const deleteUser = userData => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err);
+      message.error(JSON.stringify(err.response.data));
+      console.error(err.response.data);
     });
 };

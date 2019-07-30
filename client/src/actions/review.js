@@ -1,4 +1,5 @@
 import axios from "axios";
+import { message } from 'antd';
 
 import {
   CREATE_REVIEW_DOING,
@@ -26,7 +27,8 @@ export const fetchReceivedReviews = (userData) => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err);
+      message.error(JSON.stringify(err.response.data));
+      console.error(err.response.data);
     });
 };
 
@@ -47,7 +49,8 @@ export const fetchAssignmentReviews = userData => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err);
+      message.error(JSON.stringify(err.response.data));
+      console.error(err.response.data);
     });
 };
 
@@ -64,7 +67,8 @@ export const createReview = reviewData => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err);
+      message.error(JSON.stringify(err.response.data));
+      console.error(err.response.data);
     });
 };
 
@@ -81,6 +85,7 @@ export const submitReview = reviewData => dispatch => {
       });
     })
     .catch(err => {
-      console.error(err);
+      message.error(JSON.stringify(err.response.data));
+      console.error(err.response.data);
     });
 };
