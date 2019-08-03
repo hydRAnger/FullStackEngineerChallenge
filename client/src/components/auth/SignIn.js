@@ -49,7 +49,7 @@ class SignInForm extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} className="signin-form">
-        <h1 style={{fontSize: '20px'}}>Yet Anoter Review Application</h1>
+        <h1 style={{fontSize: '20px'}}>Yet Another Review Application</h1>
         <Form.Item>
           {getFieldDecorator("email", {
             rules: [
